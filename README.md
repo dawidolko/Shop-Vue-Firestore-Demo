@@ -11,7 +11,6 @@ It demonstrates **CRUD** (Create, Read, Update, Delete) operations for products 
 - [Technologies Used](#technologies-used)
 - [Getting Started](#getting-started)
 - [Project Structure](#project-structure)
-- [Usage](#usage)
 - [License](#license)
 
 ---
