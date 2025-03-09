@@ -45,10 +45,6 @@ It demonstrates **CRUD** (Create, Read, Update, Delete) operations for products 
    ```bash
    npm install
    ```
-   or
-   ```bash
-   yarn
-   ```
 
 3. **Configure Firebase**:  
    - Go to [Firebase Console](https://console.firebase.google.com/) and create a new project.
