@@ -1,0 +1,16 @@
+[
+  {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "subject": "Help needed",
+    "message": "I need help with my order.",
+    "sent_at": "2025-03-11T14:00:00Z"
+  },
+  {
+    "name": "Jane Smith",
+    "email": "jane@example.com",
+    "subject": "Feedback",
+    "message": "Great service!",
+    "sent_at": "2025-03-12T16:45:00Z"
+  }
+]

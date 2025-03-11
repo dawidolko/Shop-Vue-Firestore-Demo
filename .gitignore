@@ -1,7 +1,7 @@
 # Node modules
 node_modules/
 
-# Firebase Service Account Key (trzymaj ten plik prywatnie)
+# Firebase Service Account Key (keep this file private)
 serviceAccountKey.json
 
 # Logi
