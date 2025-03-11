@@ -1,0 +1,19 @@
+# Node modules
+node_modules/
+
+# Firebase Service Account Key (trzymaj ten plik prywatnie)
+serviceAccountKey.json
+
+# Logi
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build output
+dist/
+
+# System files
+.DS_Store
+Thumbs.db
