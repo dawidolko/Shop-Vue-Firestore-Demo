@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "user_id": 1,
+    "card_number": "4111111111111111",
+    "card_holder": "John Doe",
+    "expiration_date": "12/2025",
+    "ccv": "123",
+    "created_at": "2025-03-11T12:00:00Z",
+    "updated_at": "2025-03-11T12:00:00Z"
+  }
+]

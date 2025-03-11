@@ -1,0 +1,43 @@
+{
+  "name": "shop-vue-firestore-demo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A simple demo application showcasing how to use Vue 3 and Firebase Firestore to build a basic e-commerce (shop) app. It demonstrates CRUD (Create, Read, Update, Delete) operations for products stored in a Firestore database, all in a straightforward Vue front end.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "vite",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dawidolko/Shop-Vue-Firestore-Demo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dawidolko/Shop-Vue-Firestore-Demo/issues"
+  },
+  "homepage": "https://github.com/dawidolko/Shop-Vue-Firestore-Demo#readme",
+  "dependencies": {
+    "axios": "^1.8.1",
+    "cors": "^2.8.5",
+    "pinia": "^2.1.7",
+    "vue": "^3.4.29",
+    "vue-router": "^4.3.3",
+    "firebase": "^9.22.1",
+    "firebase-admin": "^13.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.5",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.1",
+    "sass": "^1.85.1",
+    "tailwindcss": "^3.4.17",
+    "vite": "^5.3.1"
+  }
+}
