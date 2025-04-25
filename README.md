@@ -4,7 +4,7 @@ Shop-Vue-Firestore-Demo is a modern, responsive e-commerce demo application buil
 
 The front end of this project is built using a ready-made W3Schools template. You can view the original template at [W3Schools Clothing Store Template](https://www.w3schools.com/w3css/tryw3css_templates_clothing_store.htm).
 
-![App Screenshot](docs/img/app.png)
+![App Screenshot](docs/img/app.png) 
 
 ## Table of Contents
 
