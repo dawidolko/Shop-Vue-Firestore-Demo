@@ -1,203 +1,353 @@
 # Shop-Vue-Firestore-Demo
 
-Shop-Vue-Firestore-Demo is a modern, responsive e-commerce demo application built with **Vue 3** and **Firebase Firestore**. It demonstrates a complete shop system with product management, user and admin panels, cart functionality, checkout processes, newsletter subscription, and a contact form—all powered by Firestore for data storage.
+> 🚀 **Modern E-Commerce Platform with Firebase** - Build full-featured online stores with Vue 3, Firestore database, and real-time data synchronization
 
-The front end of this project is built using a ready-made W3Schools template. You can view the original template at [W3Schools Clothing Store Template](https://www.w3schools.com/w3css/tryw3css_templates_clothing_store.htm).
+## 📋 Description
 
-![App Screenshot](docs/img/app.png) 
+Welcome to the **Shop-Vue-Firestore-Demo** repository! This modern, responsive e-commerce application demonstrates a complete shop system built with Vue 3 and Firebase Firestore. The platform features comprehensive product management, user and admin panels, shopping cart functionality, checkout processes, newsletter subscription, and contact forms—all powered by Firestore for real-time data storage and synchronization.
 
-## Table of Contents
+Built using a professional W3Schools template and enhanced with Vue 3's Composition API and Pinia state management, this project showcases best practices in modern frontend development, cloud database integration, and full-stack e-commerce implementation. The original template can be viewed at [W3Schools Clothing Store Template](https://www.w3schools.com/w3css/tryw3css_templates_clothing_store.htm).
 
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Getting Started](#getting-started)
-- [Project Structure](#project-structure)
-- [Docs Directory](#docs-directory)
-- [Database Directory](#database-directory)
-- [Usage](#usage)
-- [Firebase Setup](#firebase-setup)
-- [License](#license)
-- [Contact](#contact)
+![App Screenshot](docs/img/app.png)
 
-## Features
-
-- **Product Listing & CRUD**:
-  - Display a list of products fetched from Firestore.
-  - Admin panel enables creating, editing, and deleting products (with pagination: 10 products per page).
-- **Cart & Checkout**:
-  - Users (both guests and logged in) can add products to their cart.
-  - Checkout process includes shipping, invoice, and payment details.
-- **User & Admin Panels**:
-  - **User Panel**: Displays purchased products grouped by purchase date, with an option to view shipping details.
-  - **Admin Panel**: Allows product management (add, edit, delete) and viewing of contact messages.
-- **Newsletter & Contact Forms**:
-  - Footer forms for newsletter subscription and contacting support.
-  - Data for newsletter subscriptions and contact messages are stored in dedicated Firestore collections.
-
-## Technologies Used
-
-- **Vue 3** – Modern JavaScript framework for building user interfaces.
-- **Firebase Firestore** – NoSQL database used for storing all application data.
-- **Vite** – A fast development server and build tool for modern web projects.
-- **Pinia** – State management library for Vue 3.
-- **CSS** – Custom responsive styles for a modern look and feel.
-
-## Getting Started
-
-Follow these steps to get the project up and running on your local machine:
-
-1. **Clone the Repository**
-
-   ```bash
-   git clone https://github.com/dawidolko/Shop-Vue-Firestore-Demo.git
-   cd Shop-Vue-Firestore-Demo
-   ```
-
-2. **Install Dependencies**
-
-   ```bash
-   npm install
-   ```
-
-   or
-
-   ```bash
-   yarn install
-   ```
-
-3. **Configure Firebase**
-
-   - Go to the [Firebase Console](https://console.firebase.google.com/) and create a new project.
-   - Enable **Firestore** under _Build → Firestore Database_.
-   - Copy your Firebase config (apiKey, authDomain, projectId, etc.) into your project configuration (typically in `src/firebase.js`).
-   - Ensure your Firestore security rules allow the operations needed for this demo (for development, you might set open rules—but remember to tighten them for production).
-
-4. **Run the Development Server**
-
-   ```bash
-   npm run dev
-   ```
-
-   or
-
-   ```bash
-   yarn dev
-   ```
-
-   By default, the application will run at `http://localhost:5173/`.
-
-## Project Structure
-
-A typical structure of the project looks like this:
+## 📁 Repository Structure
 
 ```
+
 Shop-Vue-Firestore-Demo/
-├─ docs/
-│  └─ img/
-│     └─ app.png         # Screenshot of the application
-├─ database/
-│  ├─ users.json
-│  ├─ products.json
-│  ├─ user_product.json
-│  ├─ purchases.json
-│  ├─ shipping_details.json
-│  ├─ invoice_details.json
-│  ├─ payment_details.json
-│  ├─ newsletter.json
-│  └─ contact_messages.json
-├─ public/
-├─ src/
-│  ├─ assets/
-│  │  └─ styles/         # CSS files
-│  ├─ components/
-│  │  ├─ Checkout.vue    # Checkout form component
-│  │  └─ ...             # Other reusable components
-│  ├─ views/
-│  │  ├─ HomeView.vue
-│  │  ├─ CartView.vue
-│  │  ├─ ProductDetailView.vue
-│  │  ├─ CategoryView.vue
-│  │  ├─ BrandView.vue
-│  │  ├─ Auth/
-│  │  │  ├─ LoginView.vue
-│  │  │  ├─ RegisterView.vue
-│  │  │  ├─ PanelView.vue  # Admin/User panel
-│  │  │  └─ SettingsView.vue
-│  │  └─ ...
-│  ├─ firebase.js         # Firebase configuration
-│  ├─ router/
-│  │  └─ index.js
-│  ├─ stores/
-│  │  └─ auth.js
-│  ├─ App.vue
-│  └─ main.js
-├─ package.json
-├─ vite.config.js
-└─ README.md
+├── 📁 src/
+│ ├── 🖼️ assets/
+│ │ └── styles/ # CSS stylesheets
+│ ├── ⚛️ components/
+│ │ ├── 💳 Checkout.vue # Checkout form component
+│ │ ├── 🛒 CartItem.vue # Cart item component
+│ │ ├── 📦 ProductCard.vue # Product display card
+│ │ └── 🧭 Navbar.vue # Navigation component
+│ ├── 📄 views/
+│ │ ├── 🏠 HomeView.vue # Homepage
+│ │ ├── 🛍️ CartView.vue # Shopping cart page
+│ │ ├── 📦 ProductDetailView.vue # Product details
+│ │ ├── 🏷️ CategoryView.vue # Category listings
+│ │ ├── 🏢 BrandView.vue # Brand listings
+│ │ └── 🔐 Auth/
+│ │ ├── LoginView.vue # User login
+│ │ ├── RegisterView.vue # User registration
+│ │ ├── PanelView.vue # Admin/User panel
+│ │ └── SettingsView.vue # User settings
+│ ├── 🔥 firebase.js # Firebase configuration
+│ ├── 🔀 router/
+│ │ └── index.js # Vue Router setup
+│ ├── 🗂️ stores/
+│ │ └── auth.js # Pinia auth store
+│ ├── 💻 App.vue # Main application component
+│ └── 🚀 main.js # Vue entry point
+├── 📁 database/ # Sample data JSON files
+│ ├── 👥 users.json
+│ ├── 📦 products.json
+│ ├── 🔗 user_product.json
+│ ├── 💰 purchases.json
+│ ├── 📮 shipping_details.json
+│ ├── 🧾 invoice_details.json
+│ ├── 💳 payment_details.json
+│ ├── 📧 newsletter.json
+│ └── 💬 contact_messages.json
+├── 📁 docs/
+│ └── img/
+│ ├── app.png # Application screenshot
+│ └── firebase.png # Firebase setup screenshot
+├── 📁 public/ # Static public assets
+├── 📦 package.json # Node.js dependencies
+├── ⚙️ vite.config.js # Vite configuration
+└── 📖 README.md # Project documentation
+
 ```
 
-### Docs Directory
+## 🚀 Getting Started
 
-The **docs** directory contains documentation and visual assets for the project. You can store screenshots (for example, `docs/img/app.png`), design mockups, or additional guides here.
+### 1. Clone the Repository
 
-### Database Directory
+```bash
+git clone https://github.com/dawidolko/Shop-Vue-Firestore-Demo.git
+cd Shop-Vue-Firestore-Demo
+```
 
-The **database** directory holds JSON files with sample data for Firestore collections. These files can be imported using a script (e.g., `importData.js`) to quickly populate your Firestore database with initial data. The JSON files include data for collections such as:
+### 2. Install Dependencies
 
-- `users`
-- `products`
-- `user_product`
-- `purchases`
-- `shipping_details`
-- `invoice_details`
-- `payment_details`
-- `newsletter`
-- `contact_messages`
+```bash
+npm install
+```
 
-## Usage
+or
 
-### For Users
+```bash
+yarn install
+```
 
-- **Product Browsing & Cart:**  
-  Browse through products, add them to the cart, and complete the checkout process.
-- **User Panel:**  
-  View purchased products grouped by purchase date. Click “Shipping Details” to see shipping information (sourced from purchase data or invoice details).
+### 3. Firebase Configuration
 
-### For Administrators
+#### Create Firebase Project:
 
-- **Admin Panel:**  
-  Log in as an admin (role_id = 1) to access the Admin Panel:
-  - **Manage Products:**
-    - Add new products via the form.
-    - Edit or delete existing products.
-    - Pagination displays 10 products per page.
-  - **Contact Messages:**
-    - View messages submitted through the contact form from the footer.
+1. Go to the [Firebase Console](https://console.firebase.google.com/)
+2. Create a new project
+3. Enable **Firestore Database** under _Build → Firestore Database_
 
-## Firebase Setup
+#### Configure Firebase:
 
-Before running the project, make sure you have:
+Copy your Firebase config credentials into `src/firebase.js`:
 
-- Configured Firebase in your project (see **Getting Started**).
-- Created the following Firestore collections:
-  - `products`
-  - `purchases`
-  - `shipping_details`
-  - `invoice_details`
-  - `payment_details`
-  - `newsletter`
-  - `contact_messages`
+```javascript
+const firebaseConfig = {
+  apiKey: "your-api-key",
+  authDomain: "your-project.firebaseapp.com",
+  projectId: "your-project-id",
+  storageBucket: "your-project.appspot.com",
+  messagingSenderId: "your-sender-id",
+  appId: "your-app-id",
+};
+```
 
-For testing data import, you can use a script like `importData.js` with the JSON files located in the `database` directory.
+#### Set Firestore Security Rules:
+
+Configure appropriate security rules for development (tighten for production).
+
+### 4. Import Sample Data (Optional)
+
+Use the JSON files in the `database/` directory to populate your Firestore with initial data using an import script.
+
+### 5. Start Development Server
+
+```bash
+npm run dev
+```
+
+or
+
+```bash
+yarn dev
+```
+
+- Access the application at [http://localhost:5173/](http://localhost:5173/)
+
+## ⚙️ System Requirements
+
+### **Essential Tools:**
+
+- **Node.js** (version 14.0 or higher)
+- **npm** or **yarn** package manager
+- **Firebase Account** (free tier available)
+- **Modern Web Browser** (Chrome, Firefox, Safari, Edge)
+- **Git** for version control
+
+### **Development Environment:**
+
+- **Vue.js 3** with Composition API
+- **Vite** for fast development and building
+- **Code Editor** (VS Code, WebStorm, Sublime Text)
+- **Firebase CLI** (optional, for deployment)
+
+### **Firebase Services:**
+
+- **Firebase Authentication** for user management
+- **Cloud Firestore** for NoSQL database
+- **Firebase Hosting** (optional, for deployment)
+
+### **Recommended Extensions:**
+
+- **Volar** for Vue 3 support in VS Code
+- **Firebase Explorer** for VS Code
+- **ESLint** for JavaScript code quality
+- **Prettier** for code formatting
+- **Vue DevTools** browser extension
+
+### **Frontend Stack:**
+
+- **Vue 3** - Progressive JavaScript framework
+- **Pinia** - State management library
+- **Vue Router** - Client-side routing
+- **Vite** - Next generation build tool
+- **W3.CSS** - Responsive CSS framework
+
+## ✨ Key Features
+
+### **🛍️ Product Management**
+
+- Dynamic product listing from Firestore
+- Product categories and brand filtering
+- Detailed product pages with descriptions
+- Product images and pricing information
+- Real-time inventory updates
+
+### **🛒 Shopping Cart System**
+
+- Add/remove products from cart
+- Cart persistence for guests and logged-in users
+- Real-time price calculations
+- Quantity management
+- Cart summary with totals
+
+### **💳 Checkout Process**
+
+- Multi-step checkout flow
+- Shipping information collection
+- Invoice details form
+- Payment details capture
+- Order confirmation and summary
+
+### **👤 User Panel**
+
+- View purchase history grouped by date
+- Access shipping details for orders
+- Manage personal information
+- Order tracking and status
+- User settings and preferences
+
+### **⚙️ Admin Panel (role_id = 1)**
+
+- **Product Management:**
+  - Add new products with complete details
+  - Edit existing product information
+  - Delete products from inventory
+  - Pagination: 10 products per page
+  - Real-time product updates
+
+- **Contact Messages:**
+  - View customer inquiries from contact form
+  - Message management and responses
+  - Customer communication tracking
+
+### **📧 Newsletter & Contact**
+
+- Footer newsletter subscription form
+- Contact form for customer support
+- Data stored in dedicated Firestore collections
+- Email validation and confirmation
+
+### **🔐 Authentication System**
+
+- User registration with validation
+- Secure login functionality
+- Role-based access control (user/admin)
+- Session management with Firebase Auth
+- Protected routes and components
+
+### **📱 Responsive Design**
+
+- Mobile-first W3.CSS template
+- Fully responsive across all devices
+- Touch-friendly interface
+- Optimized for various screen sizes
+
+## 🛠️ Technologies Used
+
+- **Vue 3** - Modern progressive JavaScript framework
+- **Firebase Firestore** - NoSQL cloud database
+- **Vite** - Fast build tool and development server
+- **Pinia** - Official state management for Vue 3
+- **Vue Router** - Official routing library
+- **Firebase Authentication** - User authentication service
+- **W3.CSS** - Responsive CSS framework
+- **JavaScript (ES6+)** - Modern JavaScript features
+- **NPM** - Package management
+
+## 🔥 Firebase Setup
+
+### Required Firestore Collections
+
+Create the following collections in your Firestore database:
+
+- **products** - Product catalog data
+- **purchases** - Order records
+- **shipping_details** - Shipping information
+- **invoice_details** - Invoice data
+- **payment_details** - Payment information
+- **newsletter** - Newsletter subscriptions
+- **contact_messages** - Customer inquiries
+- **users** - User account data
 
 ![Firebase Screenshot](docs/img/firebase.png)
 
-## License
+### Data Import
 
-This project is open-source and available under the [MIT License](LICENSE). Feel free to use, modify, and distribute it as needed.
+Use the JSON files in the `database/` directory to populate your Firestore collections:
 
-## Contact
+- `users.json`
+- `products.json`
+- `user_product.json`
+- `purchases.json`
+- `shipping_details.json`
+- `invoice_details.json`
+- `payment_details.json`
+- `newsletter.json`
+- `contact_messages.json`
 
-If you have any questions or suggestions, please open an issue on GitHub or contact me directly.
+Create an import script (e.g., `importData.js`) to batch import this data into Firestore.
 
-Enjoy building your shop with Vue 3 and Firebase Firestore!
+## 📖 Usage Guide
+
+### **For Customers**
+
+#### Product Browsing:
+
+- Browse product catalog by categories or brands
+- View detailed product information
+- Search and filter products
+
+#### Shopping:
+
+- Add products to cart from listings or detail pages
+- Manage cart items (update quantities, remove items)
+- Proceed through checkout process
+
+#### Checkout:
+
+1. Review cart items and totals
+2. Enter shipping information
+3. Provide invoice details
+4. Complete payment information
+5. Confirm and place order
+
+#### User Account:
+
+- View purchase history grouped by date
+- Access shipping details for each order
+- Manage account settings
+
+### **For Administrators**
+
+#### Admin Panel Access:
+
+Log in with admin credentials (role_id = 1) to access administrative features.
+
+#### Product Management:
+
+- **Add Products:** Fill out product form with name, description, price, category, brand, and images
+- **Edit Products:** Modify existing product information
+- **Delete Products:** Remove products from inventory
+- **Pagination:** Navigate through products (10 per page)
+
+#### Customer Communication:
+
+- View contact form submissions
+- Monitor customer inquiries
+- Manage newsletter subscriptions
+
+## 🤝 Contributing
+
+Contributions are highly welcomed! Here's how you can help:
+
+- 🐛 **Report bugs** - Found an issue? Let us know!
+- 💡 **Suggest improvements** - Have ideas for better features?
+- 🔧 **Submit pull requests** - Share your enhancements and solutions
+- 📖 **Improve documentation** - Help make the project clearer
+
+Feel free to open issues or reach out through GitHub for any questions or suggestions.
+
+## 👨‍💻 Author
+
+Created by **Dawid Olko** - Part of the Vue.js and Firebase development series.
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
