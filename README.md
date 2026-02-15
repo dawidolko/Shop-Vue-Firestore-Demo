@@ -1,4 +1,4 @@
-# Shop-Vue-Firestore-Demo  
+# Shop-Vue-Firestore-Demo
 
 > 🚀 **Modern E-Commerce Platform with Firebase** - Build full-featured online stores with Vue 3, Firestore database, and real-time data synchronization
 
