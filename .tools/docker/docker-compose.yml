@@ -1,3 +1,5 @@
+name: shopvue-firestore-project
+
 services:
   app:
     build:
