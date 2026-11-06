@@ -45,6 +45,12 @@ The rules that guard them are in `database/rules.txt`.
 
 ---
 
+## 🎬 Demo
+
+[![Watch the demo on YouTube](https://img.youtube.com/vi/WTi2i2wHPt0/hqdefault.jpg)](https://www.youtube.com/watch?v=WTi2i2wHPt0)
+
+---
+
 ## 🛠️ Technology Stack
 
 | Technology        | Version | Role                                                    |
