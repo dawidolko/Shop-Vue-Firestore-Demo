@@ -88,7 +88,6 @@ const showModal = ref(false);
 const modalMessage = ref("");
 const modalType = ref("");
 
-// Obliczenie łącznej ceny koszyka
 const totalPrice = computed(() =>
   cartItems.value.reduce(
     (sum, item) => sum + item.price * item.pivot.quantity,
@@ -96,7 +95,9 @@ const totalPrice = computed(() =>
   )
 );
 
-// Pobieranie koszyka: Firestore dla zalogowanych, localStorage dla gości
+/*
+ * Fetches the cart: Firestore for logged-in users, localStorage for guests
+ */
 async function fetchCart() {
   if (authStore.user) {
     try {
@@ -105,9 +106,13 @@ async function fetchCart() {
       cartItems.value = [];
       cartSnapshot.forEach((docSnap) => {
         let data = docSnap.data();
-        // Ujednolicamy strukturę – w Firestore mamy pole "quantity"
+        /*
+         * Unify the structure: Firestore has a "quantity" field
+         */
         data.pivot = { quantity: data.quantity };
-        // Używamy id dokumentu jako id produktu
+        /*
+         * Use the document ID as the product ID
+         */
         data.id = docSnap.id;
         cartItems.value.push(data);
       });
@@ -116,7 +121,9 @@ async function fetchCart() {
       openModal("Error fetching cart data", "error");
     }
   } else {
-    // Dla gościa pobieramy dane z localStorage
+    /*
+     * Guests: read the data from localStorage
+     */
     let guestCart = JSON.parse(localStorage.getItem("guestCart") || "[]");
     cartItems.value = guestCart.map((item) => ({
       ...item,
@@ -126,28 +133,30 @@ async function fetchCart() {
   }
 }
 
-// Pomocnicza funkcja do budowania pełnej ścieżki do obrazu
+/*
+ * Builds the full path to an image
+ */
 function fullImagePath(path) {
   return path
     ? "http://localhost:5173/src/assets/" + path.replace("//", "/")
     : "";
 }
 
-// Funkcja otwierająca modal
 function openModal(message, type = "error") {
   modalMessage.value = message;
   modalType.value = type;
   showModal.value = true;
 }
 
-// Zamknięcie modala
 function closeModal() {
   showModal.value = false;
   modalMessage.value = "";
   modalType.value = "";
 }
 
-// Zwiększanie ilości – aktualizacja Firestore lub localStorage
+/*
+ * Increases the quantity, updating Firestore or localStorage
+ */
 function increment(item) {
   if (item.pivot.quantity < item.stock) {
     item.pivot.quantity++;
@@ -157,7 +166,9 @@ function increment(item) {
   }
 }
 
-// Zmniejszanie ilości – aktualizacja Firestore lub localStorage
+/*
+ * Decreases the quantity, updating Firestore or localStorage
+ */
 function decrement(item) {
   if (item.pivot.quantity > 1) {
     item.pivot.quantity--;
@@ -165,7 +176,6 @@ function decrement(item) {
   }
 }
 
-// Aktualizacja ilości produktu w koszyku
 async function updateQuantity(item) {
   if (item.pivot.quantity > item.stock) {
     openModal("Cannot exceed available stock", "error");
@@ -186,7 +196,9 @@ async function updateQuantity(item) {
       openModal("Error updating quantity", "error");
     }
   } else {
-    // Aktualizacja koszyka gościa w localStorage
+    /*
+     * Update the guest cart in localStorage
+     */
     let guestCart = JSON.parse(localStorage.getItem("guestCart") || "[]");
     const index = guestCart.findIndex((g) => g.product_id === item.id);
     if (index !== -1) {
@@ -196,7 +208,6 @@ async function updateQuantity(item) {
   }
 }
 
-// Usuwanie produktu z koszyka
 async function removeItem(productId) {
   if (authStore.user) {
     try {
@@ -217,7 +228,9 @@ async function removeItem(productId) {
   }
 }
 
-// Przejście do realizacji zamówienia – wymaga logowania
+/*
+ * Proceeds to checkout; requires login
+ */
 function proceedToCheckout() {
   if (!authStore.user) {
     openModal("You must be logged in to purchase", "error");
@@ -237,26 +250,34 @@ onMounted(() => {
   font-family: Arial, sans-serif;
 }
 
-/* Klasa .hide pozostaje, będzie wykorzystywana w media query */
+/*
+ * The .hide class stays; it is used in a media query
+ */
 .hide {
   display: none;
 }
 
-/* Ustawienie marginesu dla szerszych ekranów */
+/*
+ * Margin for wider screens
+ */
 @media screen and (min-width: 910px) {
   .cart-container {
     margin-left: 300px;
   }
 }
 
-/* Przykładowa zmiana szerokości tabeli dla ekranów poniżej 900px */
+/*
+ * Example table width change for screens below 900px
+ */
 @media screen and (max-width: 900px) {
   .cart-table {
     width: auto;
   }
 }
 
-/* Media query dla ekranów poniżej 920px - ukrywanie kolumn z klasą .hide */
+/*
+ * Hide .hide columns on screens below 920px
+ */
 @media screen and (max-width: 920px) {
   .hide {
     display: none;

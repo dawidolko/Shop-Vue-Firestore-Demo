@@ -65,7 +65,9 @@ const router = createRouter({
   routes,
 });
 
-// Globalna nawigacja chroniąca trasy
+/*
+ * Global navigation guard protecting routes
+ */
 router.beforeEach(async (to) => {
   const authStore = useAuthStore();
   await authStore.getUser();

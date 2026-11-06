@@ -53,7 +53,9 @@ const brandsByCategory = ref({});
 async function fetchBrands(category) {
   try {
     const productsRef = collection(db, "products");
-    // Zapytanie pobierające produkty, których pole category jest równe podanej kategorii
+    /*
+     * Query for products whose category field equals the given category
+     */
     const q = query(productsRef, where("category", "==", category));
     const querySnapshot = await getDocs(q);
     const brandSet = new Set();

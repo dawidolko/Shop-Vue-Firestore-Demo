@@ -46,7 +46,9 @@
           <div
             class="w3-container product-container"
             style="min-height: 200px; max-height: 200px; position: relative">
-            <!-- Pobranie obrazu z assets -->
+            <!--
+              Image from assets
+            -->
             <img
               :src="getImageUrl(prod.thumbnail)"
               alt="Product Image"
@@ -140,15 +142,18 @@ const filteredProducts = computed(() => {
   );
 });
 
-// Funkcja pomocnicza do budowania URL obrazu z folderu assets
+/*
+ * Builds an image URL from the assets folder
+ */
 function getImageUrl(thumbnail) {
   return new URL(`../assets/${thumbnail}`, import.meta.url).href;
 }
 
-// Dodawanie produktu do koszyka
 async function addToCart(productId) {
   const authStore = useAuthStore();
-  // Wyszukaj produkt w przekazanej tablicy products
+  /*
+   * Find the product in the passed products array
+   */
   const product = props.products.find((p) => p.id === productId);
   if (!product) {
     modalMessage.value = "Product not found";
@@ -167,10 +172,14 @@ async function addToCart(productId) {
       );
       const docSnap = await getDoc(itemRef);
       if (docSnap.exists()) {
-        // Aktualizacja ilości, jeśli produkt już istnieje w koszyku
+        /*
+         * Update the quantity if the product is already in the cart
+         */
         await updateDoc(itemRef, { quantity: docSnap.data().quantity + 1 });
       } else {
-        // Dodanie nowego dokumentu w koszyku
+        /*
+         * Add a new document to the cart
+         */
         await setDoc(itemRef, {
           title: product.title,
           price: product.price,
@@ -187,7 +196,9 @@ async function addToCart(productId) {
       modalType.value = "error";
     }
   } else {
-    // Dla gościa – zapisujemy pełne dane produktu w localStorage
+    /*
+     * Guests: store the full product data in localStorage
+     */
     let guestCart = JSON.parse(localStorage.getItem("guestCart") || "[]");
     const existingItem = guestCart.find(
       (item) => item.product_id === productId

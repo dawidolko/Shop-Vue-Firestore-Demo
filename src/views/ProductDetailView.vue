@@ -1,7 +1,9 @@
 <template>
   <div class="product-detail-box">
     <div class="image-container">
-      <!-- Jeśli mamy więcej niż jeden obrazek, wyświetlamy slider -->
+      <!--
+        Show a slider when there is more than one image
+      -->
       <div v-if="hasMultipleImages" class="slider">
         <button class="arrow-btn left-arrow" @click="prevImage">
           &#10094;
@@ -15,7 +17,9 @@
           &#10095;
         </button>
       </div>
-      <!-- Jeśli nie, wyświetlamy pojedynczy obrazek -->
+      <!--
+        Otherwise show a single image
+      -->
       <div v-else class="single-image">
         <img
           :src="getImageUrl(product.thumbnail)"
@@ -58,7 +62,9 @@
         <button class="modal-close" @click="closeModal">Close</button>
       </div>
     </div>
-    <!-- Modal powiększonego obrazka -->
+    <!--
+      Enlarged image modal
+    -->
     <div
       v-if="showImageModal"
       class="image-modal-overlay"
@@ -94,7 +100,9 @@ const showModal = ref(false);
 const modalMessage = ref("");
 const modalType = ref("");
 
-// Pobieranie produktu z Firestore po ID
+/*
+ * Fetches the product from Firestore by ID
+ */
 async function fetchProduct() {
   const id = route.params.id;
   try {
@@ -114,12 +122,13 @@ onMounted(() => {
   fetchProduct();
 });
 
-// Jeśli produkt zawiera więcej niż jeden obrazek
 const hasMultipleImages = computed(() => {
   return product.value.images && product.value.images.length > 1;
 });
 
-// Aktualny obrazek do slidera
+/*
+ * Current slider image
+ */
 const currentImage = computed(() => {
   if (hasMultipleImages.value) {
     return product.value.images[currentIndex.value];
@@ -127,14 +136,12 @@ const currentImage = computed(() => {
   return product.value.thumbnail;
 });
 
-// Czy produkt ma zniżkę
 const hasDiscount = computed(() => {
   return (
     product.value.discount_percentage && product.value.discount_percentage > 0
   );
 });
 
-// Oblicz cenę po zniżce
 const discountedPrice = computed(() => {
   if (hasDiscount.value) {
     const factor = 1 - product.value.discount_percentage / 100;
@@ -143,13 +150,14 @@ const discountedPrice = computed(() => {
   return product.value.price;
 });
 
-// Funkcja pomocnicza – buduje URL do obrazu z folderu src/assets
+/*
+ * Builds an image URL from the src/assets folder
+ */
 function getImageUrl(filename) {
   if (!filename) return "";
   return new URL(`../assets/${filename}`, import.meta.url).href;
 }
 
-// Slider – poprzedni obrazek
 function prevImage() {
   if (hasMultipleImages.value) {
     currentIndex.value =
@@ -158,14 +166,12 @@ function prevImage() {
   }
 }
 
-// Slider – następny obrazek
 function nextImage() {
   if (hasMultipleImages.value) {
     currentIndex.value = (currentIndex.value + 1) % product.value.images.length;
   }
 }
 
-// Otwórz modal z powiększonym obrazkiem
 function openImageModal(src) {
   modalImage.value = src;
   showImageModal.value = true;
@@ -175,7 +181,6 @@ function closeImageModal() {
   showImageModal.value = false;
 }
 
-// Zmiana ilości produktu
 function increment() {
   if (quantity.value < product.value.stock) {
     quantity.value++;
@@ -203,7 +208,6 @@ function validateQuantity() {
   }
 }
 
-// Dodawanie produktu do koszyka
 async function addToCart(productId) {
   const qty = Number(quantity.value) || 1;
   if (qty > product.value.stock) {

@@ -16,7 +16,9 @@
         </button>
       </div>
 
-      <!-- Zarządzanie produktami -->
+      <!--
+        Product management
+      -->
       <div v-if="activeTab === 'products'" class="admin-section">
         <h2>Products</h2>
         <form class="product-form" @submit.prevent="handleAddProduct">
@@ -106,7 +108,9 @@
         </div>
       </div>
 
-      <!-- Widok wiadomości kontaktowych -->
+      <!--
+        Contact messages view
+      -->
       <div v-if="activeTab === 'contacts'" class="admin-section">
         <h2>Contact Messages</h2>
         <table class="admin-table">
@@ -132,7 +136,9 @@
       </div>
     </div>
 
-    <!-- Panel Użytkownika -->
+    <!--
+      User panel
+    -->
     <div v-else>
       <h1>User Panel</h1>
       <p>
@@ -247,7 +253,9 @@ import { db } from "@/firebase";
 
 const authStore = useAuthStore();
 
-// Panel admina - produkty
+/*
+ * Admin panel - products
+ */
 const products = ref([]);
 const newProduct = ref({
   title: "",
@@ -256,13 +264,19 @@ const newProduct = ref({
   stock: 0,
 });
 
-// Panel admina - wiadomości kontaktowe
+/*
+ * Admin panel - contact messages
+ */
 const contactMessages = ref([]);
 
-// Panel użytkownika - zakupy
+/*
+ * User panel - purchases
+ */
 const purchases = ref([]);
 
-// Modal do wyświetlania danych wysyłki/invoice
+/*
+ * Modal showing shipping/invoice data
+ */
 const showModal = ref(false);
 const currentShipping = ref(null);
 
@@ -270,13 +284,14 @@ const currentShipping = ref(null);
 const notification = ref({
   show: false,
   message: "",
-  type: "success", // "success" lub "error"
+  /*
+   * "success" or "error"
+   */
+  type: "success",
 });
 
-// Aktywny tab w panelu admina
 const activeTab = ref("products");
 
-// Paginacja produktów
 const currentPage = ref(1);
 const pageSize = 10;
 const totalPages = computed(() => Math.ceil(products.value.length / pageSize));
@@ -285,19 +300,23 @@ const paginatedProducts = computed(() => {
   return products.value.slice(start, start + pageSize);
 });
 
-// Funkcja pomocnicza budująca URL obrazu – zakładamy, że obrazy znajdują się pod: http://localhost:5173/src/assets/
+/*
+ * Builds an image URL, assuming images live under
+ * http://localhost:5173/src/assets/
+ */
 function getImageUrl(path) {
   if (!path) return "";
   return "http://localhost:5173/src/assets/" + path;
 }
 
-// Formatowanie daty
 function formatDate(dateStr) {
   if (!dateStr) return "";
   return new Date(dateStr).toLocaleString();
 }
 
-// CRUD dla produktów
+/*
+ * Product CRUD
+ */
 async function fetchProducts() {
   try {
     const snapshot = await getDocs(collection(db, "products"));
@@ -358,7 +377,6 @@ async function handleDeleteProduct(id) {
   }
 }
 
-// Pobieranie wiadomości kontaktowych
 async function fetchContactMessages() {
   try {
     const snapshot = await getDocs(collection(db, "contact_messages"));
@@ -373,7 +391,6 @@ async function fetchContactMessages() {
   }
 }
 
-// Pobieranie zakupów użytkownika
 async function fetchPurchases() {
   if (!authStore.user) return;
   try {
@@ -431,7 +448,9 @@ async function fetchPurchases() {
   }
 }
 
-// Pobieranie invoice_details (do danych wysyłki) – przyjmujemy, że jest jeden dokument dla użytkownika
+/*
+ * Fetches invoice_details (for shipping data), assuming one document per user
+ */
 async function fetchInvoiceDetails() {
   if (!authStore.user) return null;
   try {
@@ -450,7 +469,10 @@ async function fetchInvoiceDetails() {
   return null;
 }
 
-// Funkcja wyświetlająca dane wysyłki – jeśli zakup ma shipping, używamy go, w przeciwnym razie pobieramy dane z invoice_details
+/*
+ * Shows shipping data: uses the purchase's shipping field if present,
+ * otherwise falls back to invoice_details
+ */
 async function showShippingDetails(purchase) {
   if (purchase.shipping) {
     currentShipping.value = purchase.shipping;
@@ -466,7 +488,6 @@ function closeModal() {
   currentShipping.value = null;
 }
 
-// Funkcja wyświetlająca komunikat modalny
 function showNotification(message, type) {
   notification.value.message = message;
   notification.value.type = type;
@@ -476,7 +497,9 @@ function showNotification(message, type) {
   }, 3000);
 }
 
-// Grupowanie zakupów po dacie zakupu
+/*
+ * Group purchases by purchase date
+ */
 const groupedPurchases = computed(() => {
   const groups = {};
   purchases.value.forEach((purchase) => {
@@ -501,7 +524,9 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-/* Ogólne style */
+/*
+ * General styles
+ */
 .panel-container {
   margin: 0 auto;
   margin-bottom: 170px;
@@ -509,7 +534,9 @@ onMounted(async () => {
   font-family: Arial, sans-serif;
 }
 
-/* Style dla zakładek */
+/*
+ * Tabs
+ */
 .tabs {
   display: flex;
   gap: 10px;
@@ -527,7 +554,9 @@ onMounted(async () => {
   color: #fff;
 }
 
-/* Style dla sekcji admina */
+/*
+ * Admin section
+ */
 .admin-section {
   margin-bottom: 30px;
 }
@@ -625,7 +654,9 @@ onMounted(async () => {
   color: #fff;
 }
 
-/* Style dla modalów */
+/*
+ * Modals
+ */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -672,7 +703,9 @@ onMounted(async () => {
   }
 }
 
-/* Responsywność */
+/*
+ * Responsive
+ */
 @media screen and (max-width: 768px) {
   .panel-container {
     padding: 10px;

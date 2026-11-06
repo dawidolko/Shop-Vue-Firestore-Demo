@@ -79,7 +79,9 @@ const modalType = ref("");
 const showEnlargedImage = ref(false);
 const enlargedImageSrc = ref("");
 
-// Pobiera produkty dla danej marki z Firestore
+/*
+ * Fetches products of the given brand from Firestore
+ */
 async function fetchProductsByBrand(brand) {
   try {
     const productsRef = collection(db, "products");
@@ -95,7 +97,9 @@ async function fetchProductsByBrand(brand) {
   }
 }
 
-// Inicjalizacja przy montowaniu oraz przy zmianie parametru
+/*
+ * Initialise on mount and when the parameter changes
+ */
 onMounted(() => {
   fetchProductsByBrand(brandName.value);
 });
@@ -109,7 +113,9 @@ watch(
   }
 );
 
-// Buduje URL obrazu z assets
+/*
+ * Builds an image URL from assets
+ */
 function getImageUrl(thumbnail) {
   if (!thumbnail) return "";
   return new URL(`../assets/${thumbnail}`, import.meta.url).href;
@@ -124,10 +130,14 @@ function closeEnlargedImage() {
   showEnlargedImage.value = false;
 }
 
-// Funkcja dodająca produkt do koszyka – wyszukuje pełne dane produktu
+/*
+ * Adds a product to the cart, looking up its full data
+ */
 async function addToCart(productId) {
   const authStore = useAuthStore();
-  // Wyszukujemy produkt z lokalnej listy pobranych produktów
+  /*
+   * Look the product up in the local list of fetched products
+   */
   const product = products.value.find((p) => p.id === productId);
   if (!product) {
     modalMessage.value = "Product not found";

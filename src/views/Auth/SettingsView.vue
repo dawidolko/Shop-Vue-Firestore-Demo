@@ -39,7 +39,9 @@
 import { ref, computed } from "vue";
 import { useAuthStore } from "@/stores/auth";
 
-// Pobieramy userDoc z store, żeby mieć aktualną nazwę
+/*
+ * Take userDoc from the store to have the current name
+ */
 const authStore = useAuthStore();
 
 const name = ref(authStore.userDoc ? authStore.userDoc.name : "");
@@ -51,7 +53,6 @@ const modalMessage = ref("");
 const modalType = ref("");
 
 async function submitUpdate() {
-  // Czy hasła się zgadzają?
   if (password.value && password.value !== passwordConfirmation.value) {
     modalMessage.value = "Passwords do not match";
     modalType.value = "error";

@@ -79,7 +79,9 @@ const modalType = ref("");
 const showEnlargedImage = ref(false);
 const enlargedImageSrc = ref("");
 
-// Pobiera produkty dla danej kategorii z Firestore
+/*
+ * Fetches products of the given category from Firestore
+ */
 async function fetchProductsByCategory(cat) {
   try {
     const productsRef = collection(db, "products");
@@ -95,7 +97,9 @@ async function fetchProductsByCategory(cat) {
   }
 }
 
-// Inicjalizacja przy montowaniu oraz przy zmianie parametru trasy
+/*
+ * Initialise on mount and when the route parameter changes
+ */
 onMounted(() => {
   fetchProductsByCategory(categoryName.value);
 });
@@ -109,7 +113,9 @@ watch(
   }
 );
 
-// Buduje URL obrazu z assets
+/*
+ * Builds an image URL from assets
+ */
 function getImageUrl(thumbnail) {
   if (!thumbnail) return "";
   return new URL(`../assets/${thumbnail}`, import.meta.url).href;
@@ -124,7 +130,9 @@ function closeEnlargedImage() {
   showEnlargedImage.value = false;
 }
 
-// Dodawanie produktu do koszyka – wyszukiwanie pełnych danych produktu
+/*
+ * Adds a product to the cart, looking up its full data
+ */
 async function addToCart(productId) {
   const authStore = useAuthStore();
   const product = products.value.find((p) => p.id === productId);

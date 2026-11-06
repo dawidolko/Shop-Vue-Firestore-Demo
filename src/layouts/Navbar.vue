@@ -193,14 +193,14 @@ import { collection, getDocs } from "firebase/firestore";
 const authStore = useAuthStore();
 const router = useRouter();
 
-// Aby wyświetlić imię użytkownika, korzystamy z userDoc pobranego po rejestracji/logowaniu
+/*
+ * The user name comes from userDoc, fetched after registration or login
+ */
 const currentUser = computed(() => authStore.userDoc);
 
-// Sterowanie menu mobilnym
 const isMobileMenuOpen = ref(false);
 const mobileDropdownOpen = ref(false);
 
-// Licznik koszyka
 const cartCount = ref(0);
 
 function toggleMobileMenu() {
@@ -219,12 +219,12 @@ function handleCartClick() {
   router.push({ name: "cart" });
 }
 
-// Wylogowanie – używamy funkcji z authStore
 async function handleLogout() {
   await authStore.logout();
-  // Po wylogowaniu zerujemy licznik koszyka
   cartCount.value = 0;
-  // Opcjonalnie możesz przekierować na stronę główną
+  /*
+   * Optionally redirect to the home page
+   */
   router.push({ name: "home" });
 }
 
@@ -233,7 +233,9 @@ function mobileLogout() {
   handleLogout();
 }
 
-// Pobieramy liczbę pozycji w koszyku
+/*
+ * Fetch the number of cart items
+ */
 async function fetchCartCount() {
   if (authStore.user) {
     try {
@@ -256,9 +258,10 @@ async function fetchCartCount() {
 }
 
 onMounted(() => {
-  // Inicjalizujemy użytkownika
   authStore.getUser().then(() => {
-    // Jeśli użytkownik jest zalogowany, czyścimy koszyk gościa
+    /*
+     * Clear the guest cart once the user is logged in
+     */
     if (authStore.user) {
       localStorage.removeItem("guestCart");
     }

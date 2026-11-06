@@ -1,10 +1,10 @@
-# Wieloetapowe budowanie: Node kompiluje bundle Vite, nginx serwuje statyki.
+# Multi-stage build: Node compiles the Vite bundle, nginx serves the static files.
 FROM node:20-alpine AS build
 
 WORKDIR /app
 
-# Zaleznosci instalowane przed skopiowaniem zrodel, zeby warstwa npm
-# byla cache'owana dopoki nie zmieni sie package.json.
+# Dependencies are installed before the sources are copied, so the npm layer
+# stays cached until package.json changes.
 COPY package.json package-lock.json ./
 RUN npm ci
 

@@ -1,7 +1,9 @@
 <template>
   <div class="flex flex-col min-h-screen">
     <div class="flex flex-grow">
-      <!-- Przekazujemy pobrane produkty do komponentu MainSection -->
+      <!--
+        Pass the fetched products to MainSection
+      -->
       <MainSection :products="products" />
     </div>
   </div>
@@ -17,7 +19,9 @@ const products = ref([]);
 
 onMounted(async () => {
   try {
-    // Pobierz wszystkie produkty z kolekcji "products" w Firestore
+    /*
+     * Fetch all products from the "products" collection in Firestore
+     */
     const productsSnapshot = await getDocs(collection(db, "products"));
     const productsData = [];
     productsSnapshot.forEach((doc) => {

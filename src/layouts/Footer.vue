@@ -154,7 +154,9 @@ function closeModal() {
   modalType.value = "";
 }
 
-// Funkcja zapisywania newslettera do kolekcji "newsletter"
+/*
+ * Saves the newsletter sign-up to the "newsletter" collection
+ */
 async function submitSubscribe() {
   try {
     await addDoc(collection(db, "newsletter"), {
@@ -169,7 +171,9 @@ async function submitSubscribe() {
   }
 }
 
-// Funkcja zapisywania wiadomości kontaktowej do kolekcji "contact_messages"
+/*
+ * Saves the contact message to the "contact_messages" collection
+ */
 async function submitContact() {
   try {
     await addDoc(collection(db, "contact_messages"), {

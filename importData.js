@@ -7,7 +7,9 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Inicjalizacja Firebase Admin SDK przy użyciu klucza Service Account
+/*
+ * Initialise the Firebase Admin SDK with the Service Account key
+ */
 const serviceAccount = JSON.parse(
   fs.readFileSync(path.join(__dirname, "serviceAccountKey.json"), "utf8")
 );
@@ -18,12 +20,16 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
-// Funkcja importująca dane z pliku JSON do kolekcji
+/*
+ * Imports data from a JSON file into a collection
+ */
 async function importCollection(collectionName, jsonFilePath) {
   const data = JSON.parse(fs.readFileSync(jsonFilePath, "utf8"));
 
   for (const item of data) {
-    // Jeśli w danych jest pole "id", użyj go jako identyfikatora dokumentu
+    /*
+     * If the data has an "id" field, use it as the document ID
+     */
     const docId = item.id ? item.id.toString() : undefined;
     if (docId) {
       await db.collection(collectionName).doc(docId).set(item);

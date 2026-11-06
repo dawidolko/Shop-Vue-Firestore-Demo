@@ -2,7 +2,9 @@
   <div class="checkout-container">
     <h1 class="checkout-title">Checkout</h1>
 
-    <!-- Krok 1: Dane wysyłki -->
+    <!--
+      Step 1: Shipping details
+    -->
     <div v-if="currentStep === 1 && !cartEmpty" class="form-step">
       <h2>Shipping Details</h2>
       <form @submit.prevent="goToNextStep">
@@ -66,7 +68,9 @@
       </form>
     </div>
 
-    <!-- Krok 2: Dane faktury -->
+    <!--
+      Step 2: Invoice details
+    -->
     <div v-else-if="currentStep === 2 && !cartEmpty" class="form-step">
       <h2>Invoice Details</h2>
       <form @submit.prevent="goToNextStep">
@@ -138,7 +142,9 @@
       </form>
     </div>
 
-    <!-- Krok 3: Dane płatności -->
+    <!--
+      Step 3: Payment details
+    -->
     <div v-else-if="currentStep === 3 && !cartEmpty" class="form-step">
       <h2>Payment Details</h2>
       <form @submit.prevent="submitCheckout">
@@ -291,7 +297,6 @@ function closeModal() {
   modalType.value = "";
 }
 
-// Funkcja sprawdzająca, czy koszyk nie jest pusty
 async function checkCart() {
   let empty = true;
   if (authStore.user) {
@@ -318,7 +323,9 @@ async function submitCheckout() {
     openModal("You must be logged in to complete purchase", "error");
     return;
   }
-  // Weryfikacja daty wygaśnięcia karty
+  /*
+   * Validate the card expiry date
+   */
   const [expMonth, expYear] = payment.expiration_date.split("/");
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth() + 1;
@@ -330,7 +337,9 @@ async function submitCheckout() {
     openModal("Card expiration date cannot be in the past", "error");
     return;
   }
-  // Pobieramy koszyk z Firestore
+  /*
+   * Fetch the cart from Firestore
+   */
   let cartItems = [];
   const cartRef = collection(db, "users", authStore.user.uid, "cart");
   const snapshot = await getDocs(cartRef);
@@ -343,14 +352,12 @@ async function submitCheckout() {
   }
 
   try {
-    // Zapisz dane wysyłki
     await addDoc(collection(db, "shipping_details"), {
       user_id: authStore.user.uid,
       ...shipping,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
     });
-    // Zapisz dane faktury
     await addDoc(collection(db, "invoice_details"), {
       user_id: authStore.user.uid,
       email: userEmail.value,
@@ -358,14 +365,12 @@ async function submitCheckout() {
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
     });
-    // Zapisz dane płatności
     await addDoc(collection(db, "payment_details"), {
       user_id: authStore.user.uid,
       ...payment,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
     });
-    // Zapisz zamówienie
     const purchasePayload = {
       user_id: authStore.user.uid,
       items: cartItems.map((item) => ({
@@ -378,7 +383,6 @@ async function submitCheckout() {
       status: "pending",
     };
     await addDoc(collection(db, "purchases"), purchasePayload);
-    // Czyścimy koszyk
     for (const item of cartItems) {
       await deleteDoc(
         doc(db, "users", authStore.user.uid, "cart", item.product_id)

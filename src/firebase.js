@@ -4,7 +4,6 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
-// Konfiguracja Twojej aplikacji Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyDpoR9FLkSQMaYpfrij-gXkmtwXfL4epjw",
   authDomain: "sklep-vue-firestore.firebaseapp.com",
@@ -15,7 +14,6 @@ const firebaseConfig = {
   measurementId: "G-NJ6SPBZFVB",
 };
 
-// Inicjalizacja Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);

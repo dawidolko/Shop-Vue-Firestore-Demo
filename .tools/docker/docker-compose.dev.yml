@@ -10,6 +10,6 @@ services:
       - "5173:5173"
     volumes:
       - ../../:/app
-      # Anonimowy wolumen chroni node_modules z obrazu przed nadpisaniem
-      # przez katalog hosta (inny system plikow, inne binaria).
+      # Anonymous volume keeps the image's node_modules from being overwritten
+      # by the host directory (different file system, different binaries).
       - /app/node_modules

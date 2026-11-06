@@ -11,7 +11,10 @@ import {
 
 export const useAuthStore = defineStore("authStore", {
   state: () => ({
-    user: null, // obiekt z Firebase Auth
+    /*
+     * Object from Firebase Auth
+     */
+    user: null,
     userDoc: null,
     errors: {},
     modalMessage: "",
